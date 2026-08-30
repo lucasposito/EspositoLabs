@@ -78,8 +78,7 @@ code, .mono {
 .brand-mark {
   width: 28px;
   height: 28px;
-  border-radius: 8px;
-  background: var(--accent-grad);
+  background: url("/assets/img/logo.png") center / contain no-repeat;
   display: inline-block;
   flex-shrink: 0;
 }
