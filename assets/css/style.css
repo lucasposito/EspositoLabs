@@ -361,6 +361,104 @@ section {
   color: var(--text);
 }
 
+/* Product sub-nav tabs */
+.product-tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 40px;
+}
+
+.product-tabs a {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 18px;
+  font-size: 0.9rem;
+  font-weight: 600;
+  color: var(--text-dim);
+  border-bottom: 2px solid transparent;
+  transform: translateY(1px);
+}
+
+.product-tabs a:hover {
+  color: var(--text);
+}
+
+.product-tabs a.active {
+  color: var(--text);
+  border-bottom-color: var(--accent);
+}
+
+.product-tabs a .ext-icon {
+  width: 12px;
+  height: 12px;
+  opacity: 0.6;
+  flex-shrink: 0;
+}
+
+/* Simple external link callout card (Forum, YouTube, etc.) */
+.link-card {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: 22px 24px;
+  transition: border-color 0.15s ease, transform 0.15s ease;
+}
+
+.link-card:hover {
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+
+.link-card .link-card-body {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.link-card .link-card-title {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-weight: 700;
+  color: var(--text);
+}
+
+.link-card .link-card-icon {
+  width: 40px;
+  height: 40px;
+  border-radius: 10px;
+  background: rgba(124, 92, 255, 0.12);
+  border: 1px solid rgba(124, 92, 255, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent-2);
+  flex-shrink: 0;
+}
+
+.link-card .link-card-icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.link-card p {
+  margin: 4px 0 0;
+  color: var(--text-dim);
+  font-size: 0.9rem;
+}
+
+.link-card .link-card-arrow {
+  color: var(--text-dim);
+  flex-shrink: 0;
+}
+
 .product-hero-grid {
   display: grid;
   grid-template-columns: 1.2fr 0.8fr;
@@ -381,6 +479,38 @@ section {
   padding: 28px;
   position: sticky;
   top: 96px;
+}
+
+.tier-toggle {
+  display: flex;
+  gap: 4px;
+  background: var(--bg-alt);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 4px;
+  margin-bottom: 20px;
+}
+
+.tier-btn {
+  flex: 1;
+  border: none;
+  background: transparent;
+  color: var(--text-dim);
+  font-weight: 600;
+  font-size: 0.85rem;
+  padding: 8px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.15s ease, color 0.15s ease;
+}
+
+.tier-btn:hover {
+  color: var(--text);
+}
+
+.tier-btn.active {
+  background: var(--accent-grad);
+  color: #0b0d12;
 }
 
 .buy-box .price {
