@@ -97,37 +97,39 @@
 
       <aside class="buy-box" id="buy">
         <div class="tier-toggle" role="tablist" aria-label="License tier">
-          <button type="button" class="tier-btn active" data-tier="indie" aria-pressed="true">Indie</button>
+          <button type="button" class="tier-btn active" data-tier="individual" aria-pressed="true">Individual</button>
           <button type="button" class="tier-btn" data-tier="commercial" aria-pressed="false">Commercial</button>
+          <button type="button" class="tier-btn" data-tier="site" aria-pressed="false">Site</button>
         </div>
 
-        <div class="price" id="tierPrice">£39.90</div>
-        <div class="price-note" id="tierNote">One-time purchase &middot; license key &middot; under £90,000 annual revenue</div>
+        <div class="price" id="tierPrice">Free</div>
+        <div class="price-note" id="tierNote">For individuals &middot; one person, personal or freelance use</div>
 
         <a id="downloadBtn"
            href="https://github.com/lucasposito/MasterAssets-releases/releases"
            class="btn btn-secondary btn-lg"
            style="width: 100%; margin-bottom: 12px;"
-           target="_blank" rel="noopener">
+           target="_blank" rel="noopener" hidden>
           Try MasterAssets
         </a>
 
         <a id="tierPurchaseBtn"
-           href="https://espositolabs.lemonsqueezy.com/checkout/buy/542d8ec3-f21c-427c-9ae6-93fca1df780a"
-           class="btn btn-primary btn-lg lemonsqueezy-button"
-           style="width: 100%;">
-          Purchase a License
+           href="https://github.com/lucasposito/MasterAssets-releases/releases"
+           class="btn btn-primary btn-lg"
+           style="width: 100%;"
+           target="_blank" rel="noopener">
+          Download Free
         </a>
 
         <ul>
-          <li>Free trial, no signup required</li>
-          <li>Instant license key delivery after purchase</li>
+          <li>Free for individuals, no signup required</li>
+          <li>Instant license key delivery for paid tiers</li>
           <li>Secure checkout via Lemon Squeezy</li>
           <li>Email support</li>
         </ul>
 
         <p style="font-size: 0.8rem; color: var(--text-dim); margin: 0;">
-          One license per user, per major version - see
+          One seat per user, billed annually - see
           <a href="/products/masterassets/licensing/" style="color: var(--accent-2);">licensing details</a>.
         </p>
       </aside>
@@ -152,18 +154,25 @@
 <script>
 (() => {
   const tiers = {
-    indie: {
-      price: "£39.90",
-      note: "One-time purchase &middot; license key &middot; under £90,000 annual revenue",
-      href: "https://espositolabs.lemonsqueezy.com/checkout/buy/542d8ec3-f21c-427c-9ae6-93fca1df780a",
-      label: "Purchase a License",
-      checkout: true
+    individual: {
+      price: "Free",
+      note: "For individuals &middot; one person, personal or freelance use",
+      href: "https://github.com/lucasposito/MasterAssets-releases/releases",
+      label: "Download Free",
+      checkout: false
     },
     commercial: {
-      price: "£79.90",
-      note: "One-time purchase &middot; license key &middot; £90,000+ annual revenue",
-      href: "mailto:support@espositolabs.com?subject=MasterAssets%20Commercial%20License",
-      label: "Request Commercial License",
+      price: "£180/seat/year",
+      note: "Per-seat annual subscription &middot; for teams and studios",
+      href: "https://espositolabs.lemonsqueezy.com/checkout/buy/542d8ec3-f21c-427c-9ae6-93fca1df780a",
+      label: "Subscribe",
+      checkout: true
+    },
+    site: {
+      price: "From £2,400/year",
+      note: "Site licence &middot; studio-wide access, scales with team size",
+      href: "mailto:support@espositolabs.com?subject=MasterAssets%20Site%20Licence",
+      label: "Request a Quote",
       checkout: false
     }
   };
@@ -172,6 +181,7 @@
   const priceEl = document.getElementById("tierPrice");
   const noteEl = document.getElementById("tierNote");
   const purchaseBtn = document.getElementById("tierPurchaseBtn");
+  const downloadBtn = document.getElementById("downloadBtn");
 
   buttons.forEach((btn) => {
     btn.addEventListener("click", () => {
@@ -188,6 +198,14 @@
       purchaseBtn.textContent = tier.label;
       purchaseBtn.href = tier.href;
       purchaseBtn.classList.toggle("lemonsqueezy-button", tier.checkout);
+      downloadBtn.hidden = btn.dataset.tier === "individual";
+      if (tier.checkout) {
+        purchaseBtn.removeAttribute("target");
+        purchaseBtn.removeAttribute("rel");
+      } else {
+        purchaseBtn.setAttribute("target", "_blank");
+        purchaseBtn.setAttribute("rel", "noopener");
+      }
     });
   });
 })();
