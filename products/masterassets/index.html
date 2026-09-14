@@ -7,8 +7,14 @@
 <meta name="description" content="MasterAssets is an asset and pipeline management tool for game animation teams, by EspositoLabs.">
 <link rel="icon" type="image/png" href="/assets/img/esposito-logo.png">
 <link rel="stylesheet" href="/assets/css/style.css">
-<!-- Lemon Squeezy overlay checkout script -->
-<script src="https://assets.lemonsqueezy.com/lemon.js" defer></script>
+<!-- Paddle overlay checkout script -->
+<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
+<script>
+  // TODO: swap in your real Paddle client-side token once the account/product setup is done.
+  // Sandbox tokens start with "test_", live tokens start with "live_".
+  Paddle.Environment.set("sandbox");
+  Paddle.Initialize({ token: "REPLACE_WITH_PADDLE_CLIENT_TOKEN" });
+</script>
 </head>
 <body>
 
@@ -124,7 +130,7 @@
         <ul>
           <li>Free for individuals, no signup required</li>
           <li>Instant license key delivery for paid tiers</li>
-          <li>Secure checkout via Lemon Squeezy</li>
+          <li>Secure checkout via Paddle</li>
           <li>Email support</li>
         </ul>
 
@@ -164,7 +170,7 @@
     commercial: {
       price: "£180/seat/year",
       note: "Per-seat annual subscription &middot; for teams and studios",
-      href: "https://espositolabs.lemonsqueezy.com/checkout/buy/542d8ec3-f21c-427c-9ae6-93fca1df780a",
+      priceId: "pri_01m2g2xhbgtv985hk5z85afbs4",
       label: "Subscribe",
       checkout: true
     },
@@ -196,13 +202,18 @@
       priceEl.textContent = tier.price;
       noteEl.innerHTML = tier.note;
       purchaseBtn.textContent = tier.label;
-      purchaseBtn.href = tier.href;
-      purchaseBtn.classList.toggle("lemonsqueezy-button", tier.checkout);
+      purchaseBtn.onclick = null;
       downloadBtn.hidden = btn.dataset.tier === "individual";
       if (tier.checkout) {
+        purchaseBtn.href = "#";
         purchaseBtn.removeAttribute("target");
         purchaseBtn.removeAttribute("rel");
+        purchaseBtn.onclick = (event) => {
+          event.preventDefault();
+          Paddle.Checkout.open({ items: [{ priceId: tier.priceId, quantity: 1 }] });
+        };
       } else {
+        purchaseBtn.href = tier.href;
         purchaseBtn.setAttribute("target", "_blank");
         purchaseBtn.setAttribute("rel", "noopener");
       }
