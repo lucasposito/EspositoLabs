@@ -7,13 +7,6 @@
 <meta name="description" content="MasterAssets is an asset and pipeline management tool for game animation teams, by EspositoLabs.">
 <link rel="icon" type="image/png" href="/assets/img/esposito-logo.png">
 <link rel="stylesheet" href="/assets/css/style.css">
-<!-- Paddle overlay checkout script -->
-<script src="https://cdn.paddle.com/paddle/v2/paddle.js"></script>
-<script>
-  // Sandbox tokens start with "test_", live tokens start with "live_".
-  Paddle.Environment.set("sandbox");
-  Paddle.Initialize({ token: "test_e98b07f9f22dc3f02c790097584" });
-</script>
 </head>
 <body>
 
@@ -163,22 +156,19 @@
       price: "Free",
       note: "For individuals &middot; one person, personal or freelance use",
       href: "https://github.com/lucasposito/MasterAssets-releases/releases",
-      label: "Download Free",
-      checkout: false
+      label: "Download Free"
     },
     commercial: {
       price: "£180/seat/year",
       note: "Per-seat annual subscription &middot; for teams and studios",
-      priceId: "pri_01m2g2xhbgtv985hk5z85afbs4",
-      label: "Subscribe",
-      checkout: true
+      href: "https://pricing.espositolabs.com/",
+      label: "Subscribe"
     },
     site: {
       price: "From £2,400/year",
       note: "Site licence &middot; studio-wide access, scales with team size",
       href: "mailto:support@espositolabs.com?subject=MasterAssets%20Site%20Licence",
-      label: "Request a Quote",
-      checkout: false
+      label: "Request a Quote"
     }
   };
 
@@ -201,21 +191,10 @@
       priceEl.textContent = tier.price;
       noteEl.innerHTML = tier.note;
       purchaseBtn.textContent = tier.label;
-      purchaseBtn.onclick = null;
       downloadBtn.hidden = btn.dataset.tier === "individual";
-      if (tier.checkout) {
-        purchaseBtn.href = "#";
-        purchaseBtn.removeAttribute("target");
-        purchaseBtn.removeAttribute("rel");
-        purchaseBtn.onclick = (event) => {
-          event.preventDefault();
-          Paddle.Checkout.open({ items: [{ priceId: tier.priceId, quantity: 1 }] });
-        };
-      } else {
-        purchaseBtn.href = tier.href;
-        purchaseBtn.setAttribute("target", "_blank");
-        purchaseBtn.setAttribute("rel", "noopener");
-      }
+      purchaseBtn.href = tier.href;
+      purchaseBtn.setAttribute("target", "_blank");
+      purchaseBtn.setAttribute("rel", "noopener");
     });
   });
 })();
