@@ -105,9 +105,9 @@
 
         <a id="downloadBtn"
            href="https://github.com/lucasposito/MasterAssets-releases/releases"
-           class="btn btn-secondary btn-lg"
+           class="btn btn-primary btn-lg"
            style="width: 100%; margin-bottom: 12px;"
-           target="_blank" rel="noopener" hidden>
+           target="_blank" rel="noopener">
           Try MasterAssets
         </a>
 
@@ -115,7 +115,7 @@
            href="https://github.com/lucasposito/MasterAssets-releases/releases"
            class="btn btn-primary btn-lg"
            style="width: 100%;"
-           target="_blank" rel="noopener">
+           target="_blank" rel="noopener" hidden>
           Download Free
         </a>
 
@@ -155,20 +155,24 @@
     individual: {
       price: "Free",
       note: "For individuals &middot; one person, personal or freelance use",
-      href: "https://github.com/lucasposito/MasterAssets-releases/releases",
-      label: "Download Free"
+      showPurchase: false,
+      downloadClass: "btn btn-primary btn-lg"
     },
     commercial: {
       price: "£180/seat/year",
       note: "Per-seat annual subscription &middot; for teams and studios",
       href: "https://pricing.espositolabs.com/",
-      label: "Subscribe"
+      label: "Subscribe",
+      showPurchase: true,
+      downloadClass: "btn btn-secondary btn-lg"
     },
     site: {
       price: "From £2,400/year",
       note: "Site licence &middot; studio-wide access, scales with team size",
-      href: "mailto:support@espositolabs.com?subject=MasterAssets%20Site%20Licence",
-      label: "Request a Quote"
+      href: "https://pricing.espositolabs.com/",
+      label: "Subscribe",
+      showPurchase: true,
+      downloadClass: "btn btn-secondary btn-lg"
     }
   };
 
@@ -190,11 +194,14 @@
       const tier = tiers[btn.dataset.tier];
       priceEl.textContent = tier.price;
       noteEl.innerHTML = tier.note;
-      purchaseBtn.textContent = tier.label;
-      downloadBtn.hidden = btn.dataset.tier === "individual";
-      purchaseBtn.href = tier.href;
-      purchaseBtn.setAttribute("target", "_blank");
-      purchaseBtn.setAttribute("rel", "noopener");
+      downloadBtn.className = tier.downloadClass;
+      purchaseBtn.hidden = !tier.showPurchase;
+      if (tier.showPurchase) {
+        purchaseBtn.textContent = tier.label;
+        purchaseBtn.href = tier.href;
+        purchaseBtn.setAttribute("target", "_blank");
+        purchaseBtn.setAttribute("rel", "noopener");
+      }
     });
   });
 })();
